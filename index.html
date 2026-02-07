@@ -3,28 +3,312 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
+  <title>Will You? ❤️</title>
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
-  <title>Will You ?</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400..700&display=swap" rel="stylesheet">
+
+  <style>
+    /* --- CSS STYLES --- */
+    :root {
+      --primary-color: #ff4d6d;
+      --bg-color: #ffe5ec;
+      --card-bg: rgba(255, 255, 255, 0.95);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Caveat', cursive;
+      background: var(--bg-color);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden; /* Prevents scrollbars if button moves to edge */
+    }
+
+    .container {
+      position: relative;
+      width: 90%;
+      max-width: 400px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      text-align: center;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+
+    /* Screen Management */
+    .screen {
+      display: none;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Images */
+    .sticker img {
+      width: 150px;
+      height: auto;
+      margin-bottom: 20px;
+      border-radius: 10px;
+    }
+
+    /* Text */
+    .text p {
+      font-size: 2rem;
+      color: #333;
+      margin: 10px 0 30px 0;
+      line-height: 1.2;
+    }
+
+    /* Buttons Area */
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      position: relative;
+      min-height: 60px; 
+    }
+
+    .btn {
+      padding: 10px 30px;
+      font-size: 1.5rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: 'Caveat', cursive;
+      transition: transform 0.2s, background 0.2s;
+      z-index: 100;
+    }
+
+    .btn:hover {
+      transform: scale(1.1);
+    }
+
+    .yes-btn {
+      background-color: #4caf50;
+      color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    .no-btn {
+      background-color: var(--primary-color);
+      color: white;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    /* Back Button */
+    .back-btn-container {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+    }
+
+    .bckbtn {
+      background: none;
+      border: 1px solid #ccc;
+      border-radius: 50%;
+      width: 35px;
+      height: 35px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: #666;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.3s;
+    }
+
+    .bckbtn:hover {
+      background: #f0f0f0;
+      color: #000;
+    }
+
+    /* THE RUNAWAY BUTTON STYLE */
+    #runaway-btn {
+      transition: all 0.4s ease-out; /* Makes the movement smooth */
+      position: absolute; /* Allows it to move freely */
+    }
+
+    .credit {
+      position: fixed;
+      bottom: 10px;
+      font-size: 1rem;
+      color: #888;
+    }
+  </style>
 </head>
 <body>
+
   <div class="container">
-    <div class="content">
+    
+    <div id="screen-1" class="screen active">
       <div class="sticker">
-        <img src="second-page.gif" alt="Kitten Sticker">
+        <img src="second-page.gif" alt="Cute Gif">
       </div>
       <div class="text">
         <p>Do you love me? 🥺</p>
       </div>
       <div class="buttons">
-        <a href="yes.html"> <button class="btn yes-btn-1">Yes</button></a>
-        <a href="second-page.html"><button class="btn no-btn-1">No</button></a>
+        <button class="btn yes-btn" onclick="goToScreen('screen-yes')">Yes</button>
+        <button class="btn no-btn" onclick="goToScreen('screen-2')">No</button>
       </div>
     </div>
+
+    <div id="screen-2" class="screen">
+      <div class="back-btn-container">
+        <button class="bckbtn" onclick="goToScreen('screen-1')">&larr;</button>
+      </div>
+      <div class="sticker">
+        <img src="mimibubu.gif" alt="Sad Gif">
+      </div>
+      <div class="text">
+        <p>Sachi me Pyar nahi karti kya? 😭🥹</p>
+      </div>
+      <div class="buttons">
+        <button class="btn yes-btn" onclick="goToScreen('screen-yes')">Yes</button>
+        <button class="btn no-btn" onclick="goToScreen('screen-3')">No</button>
+      </div>
+    </div>
+
+    <div id="screen-3" class="screen">
+      <div class="back-btn-container">
+        <button class="bckbtn" onclick="goToScreen('screen-2')">&larr;</button>
+      </div>
+      <div class="sticker">
+        <img src="please.gif" alt="Please Gif">
+      </div>
+      <div class="text">
+        <p>Man vi jao na aab to 😭 Please🥹</p>
+      </div>
+      <div class="buttons">
+        <button class="btn yes-btn" onclick="goToScreen('screen-yes')">Yes</button>
+        <button class="btn no-btn" onclick="goToScreen('screen-4')">No</button>
+      </div>
+    </div>
+
+    <div id="screen-4" class="screen">
+      <div class="back-btn-container">
+        <button class="bckbtn" onclick="goToScreen('screen-3')">&larr;</button>
+      </div>
+      <div class="sticker">
+        <img src="angry.gif" alt="Angry Gif">
+      </div>
+      <div class="text">
+        <p>Aakhri bar puch raha hu manogi ya nahi? 😤</p>
+      </div>
+      
+      <div class="buttons" style="height: 60px;">
+        <button class="btn yes-btn" onclick="goToScreen('screen-yes')">Yes</button>
+        <button id="runaway-btn" class="btn no-btn">NO</button>
+      </div>
+    </div>
+
+    <div id="screen-yes" class="screen">
+      <div class="back-btn-container">
+        <button class="bckbtn" onclick="goToScreen('screen-1')">↺</button>
+      </div>
+      <div class="sticker">
+        <img src="yes.gif" alt="Happy Gif">
+      </div>
+      <div class="text">
+        <p>Mujhe pata hi tha tum <br> mujse pyar karti ho 😭💗</p>
+      </div>
+    </div>
+
   </div>
 
-  <script src="script.js"></script>
+  <h2 class="credit">&copy; Diwash | Made by Diwash Pandey</h2>
+
+  <script>
+    function goToScreen(screenId) {
+      document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+      document.getElementById(screenId).classList.add('active');
+      
+      // Reset the runaway button if we leave screen 4
+      if(screenId !== 'screen-4') {
+        const btn = document.getElementById('runaway-btn');
+        btn.style.position = 'absolute'; 
+        btn.style.top = 'auto';
+        btn.style.left = 'auto';
+      }
+    }
+
+    // --- LOGIC FOR RUNAWAY BUTTON ---
+    const runawayBtn = document.getElementById('runaway-btn');
+
+    const moveButton = (e) => {
+        // 1. Get the viewport dimensions (visible screen)
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        
+        // 2. Get button dimensions
+        const btnRect = runawayBtn.getBoundingClientRect();
+        const btnWidth = btnRect.width;
+        const btnHeight = btnRect.height;
+        
+        // 3. Get Mouse Position
+        // Use clientX/Y for mouse, or touches for mobile
+        const mouseX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+        const mouseY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+
+        // 4. Calculate a Random Position BUT enforce safety margins
+        // We set a padding of 50px so it never hits the absolute edge
+        const padding = 50;
+        
+        let newX, newY;
+        
+        // We try to generate a position that is "Far" from the cursor
+        // Loop a few times to find a spot that isn't too close to the mouse
+        let attempts = 0;
+        do {
+            newX = Math.random() * (screenWidth - btnWidth - padding * 2) + padding;
+            newY = Math.random() * (screenHeight - btnHeight - padding * 2) + padding;
+            
+            // Calculate distance from mouse to new potential spot
+            const dist = Math.hypot(newX - mouseX, newY - mouseY);
+            
+            // If distance is good (more than 200px away), break loop
+            if(dist > 200) break;
+            
+            attempts++;
+        } while (attempts < 5); // Prevents infinite loop
+
+        // 5. Apply the new position using Fixed positioning
+        // This lets the button break out of the card and use the whole screen
+        runawayBtn.style.position = 'fixed';
+        runawayBtn.style.left = `${newX}px`;
+        runawayBtn.style.top = `${newY}px`;
+    };
+
+    // Trigger on Mouse Enter (Desktop)
+    runawayBtn.addEventListener('mouseenter', moveButton);
+    
+    // Trigger on Touch Start (Mobile)
+    runawayBtn.addEventListener('touchstart', (e) => {
+        e.preventDefault(); // Stop it from clicking
+        moveButton(e);
+    });
+
+    // Just in case they click fast
+    runawayBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        moveButton(e);
+    });
+
+  </script>
 </body>
 </html>
